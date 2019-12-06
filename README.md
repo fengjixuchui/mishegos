@@ -60,6 +60,12 @@ Generate an ~ugly~ pretty visualization of the filtered results:
 open /tmp/mishegos.html
 ```
 
+### Contributing
+
+We welcome contributors to mishegos!
+
+A guide for adding new disassembler workers can be found [here](./docs/adding_a_worker.md).
+
 ### Performance notes
 
 All numbers below correspond to the following run:
@@ -82,7 +88,6 @@ Within Docker:
 * Performance improvements
     * Break cohort collection out into a separate process (requires re-addition of semaphores)
     * Maybe use a better data structure for input/output/cohort slots
-    * Use a faster serialization format than JSON
 * Add a scaling factor for workers, e.g. spawn `N` of each worker
 * Pre-analysis normalization (whitespace, immediate representation, prefixes)
 * Analysis strategies:
