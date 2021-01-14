@@ -1,26 +1,26 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# filter-destroy-capstone: find results that only capstone gets right (or wrong)
+# filter-destroy-bddisasm: find results that only bddisasm gets right (or wrong)
 
 require "json"
 
 # TODO(ww): Remove this.
-CAPSTONE_SO = "./src/worker/capstone/capstone.so"
+BDDISASM_SO = "./src/worker/bddisasm/bddisasm.so"
 XED_SO = "./src/worker/xed/xed.so"
 ZYDIS_SO = "./src/worker/zydis/zydis.so"
 
-warn "[+] pass: filter-destroy-capstone"
+warn "[+] pass: filter-destroy-bddisasm"
 
 count = 0
 $stdin.each_line do |line|
   result = JSON.parse line, symbolize_names: true
 
-  capstone = result[:outputs].find { |o| o[:worker_so] == CAPSTONE_SO }
+  bddisasm = result[:outputs].find { |o| o[:worker_so] == BDDISASM_SO }
   xed = result[:outputs].find { |o| o[:worker_so] == XED_SO }
   zydis = result[:outputs].find { |o| o[:worker_so] == ZYDIS_SO }
 
-  if capstone[:status][:value] == xed[:status][:value] && capstone[:status][:value] == zydis[:status][:value]
+  if bddisasm[:status][:value] == xed[:status][:value] && bddisasm[:status][:value] == zydis[:status][:value]
     count += 1
     next
   end
@@ -28,4 +28,4 @@ $stdin.each_line do |line|
   $stdout.puts result.to_json
 end
 
-warn "[+] pass: filter-destroy-capstone done: #{count} filtered"
+warn "[+] pass: filter-destroy-bddisasm done: #{count} filtered"
